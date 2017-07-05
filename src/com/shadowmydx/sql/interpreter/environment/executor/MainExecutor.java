@@ -21,6 +21,8 @@ public class MainExecutor implements NodeExecutor {
         while (start != null) {
             if (start.getType() == NodeType.START) {
                 ifChange = helpHandler(start, env);
+            } else {
+                ifChange = start;
             }
             if (ifChange != start) {
                 start = ifChange;
