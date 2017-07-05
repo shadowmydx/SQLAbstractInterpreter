@@ -1,0 +1,19 @@
+create table ALM_OWNER.ALM_USER (
+     ADMIN_USER VARCHAR(10)
+);
+EXECUTE 'create table' + 'ALM_USER (' + 'ADMIN_USER VARCHAR(10), TEST VARCHA);';
+create table ALM_OWNER.ALM_USER (
+     ADMIN_USER VARCHAR(10),
+     REACH_DATE NUMBER,
+     TEST VARCHAR
+);
+create table ALM_OWNER_1 (
+     ADMIN_USER VARCHAR(10),
+     REACH_DATE NUMBER,
+     TEST VARCHAR
+);
+create table ALM_OWNER_2 (
+     USER VARCHAR(10),
+     REACH_DATE NUMBER,
+     TEST VARCHAR
+);
