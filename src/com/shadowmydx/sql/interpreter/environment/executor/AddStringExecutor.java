@@ -13,10 +13,22 @@ public class AddStringExecutor implements NodeExecutor {
     @Override
     public MatchNode execute(MatchNode root, SQLEnvironment env, List<Object> childrenResult) {
         MatchNode nextValue = (MatchNode) ExecutorEnvironment.getEax();
-        String currentString = (String)ExecutorEnvironment.getEax();
-        MainExecutor.helpHandler(nextValue, env);
-        currentString += (String) ExecutorEnvironment.getEax();
+        String currentString = ExecutorEnvironment.varForString.get("current");
+        currentString = processString(currentString);
+        nextValue = MatchNode.copyNewNonTerminateLink(nextValue);
+        new MainExecutor().execute(nextValue, env, null);
+        currentString += processString((String) ExecutorEnvironment.getEax());
         ExecutorEnvironment.setEax(currentString);
         return MatchNode.findNonTerminateEnd(nextValue);
+    }
+
+    private String processString(String currentString) {
+        if (currentString.startsWith("'") && currentString.endsWith("'")) {
+            return currentString.substring(1, currentString.length() - 1);
+        }
+        if (currentString.startsWith("\"") && currentString.endsWith("\"")) {
+            return currentString.substring(1, currentString.length() - 1);
+        }
+        return currentString;
     }
 }

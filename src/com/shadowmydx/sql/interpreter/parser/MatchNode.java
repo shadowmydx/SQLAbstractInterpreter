@@ -69,14 +69,33 @@ public class MatchNode {
         }
         int count = 1;
         MatchNode start = target.getNextNode();
+        MatchNode result = start;
         while (count != 0) {
             if (start.getType() == NodeType.START) {
                 count ++;
             } else if (start.getType() == NodeType.END) {
                 count --;
             }
+            result = start;
             start = start.getNextNode();
         }
-        return start;
+        return result;
+    }
+
+    public static MatchNode copyNewNonTerminateLink(MatchNode start) {
+        if (start.getType() != NodeType.START) {
+            return null;
+        }
+        MatchNode end = MatchNode.findNonTerminateEnd(start);
+        MatchNode newStart = new MatchNode();
+        newStart.setMark(start.getMark());
+        newStart.setType(start.getType());
+        newStart.setContent(start.getContent());
+        newStart.setNextNode(start.getNextNode());
+        MatchNode newEnd = new MatchNode();
+        newEnd.setMark(end.getMark());
+        newEnd.setType(end.getType());
+        newEnd.setPreNode(end.getPreNode());
+        return newStart;
     }
 }

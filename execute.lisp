@@ -17,4 +17,4 @@
    (_modify_current_string (_add_string (_index_non_terminate 1))))
 
 (execute_key_word
-   (_execute_current_string))
+   (_execute_current_string (_execute_non_terminate (_index_non_terminate 1))))

@@ -1,11 +1,14 @@
 (execute_stmt
   (execute_key_word
-      (string
-             ';')))
+      (string ';')
+      (string_expr ';')))
 (string
-    (NORMAL_STRING
-       (string_add_oper string))
     (NORMAL_STRING))
+(string_expr
+     (string
+        (string_add_oper
+              string_expr))
+     (string))
 
 (string_add_oper
    '+')

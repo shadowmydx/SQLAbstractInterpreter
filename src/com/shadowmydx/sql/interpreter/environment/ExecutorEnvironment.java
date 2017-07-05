@@ -32,6 +32,11 @@ public class ExecutorEnvironment {
         buildIn.put("_modify_current_column", new CurrentColumnNodeExecutor());
         buildIn.put("_modify_current_type", new CurrentColumnTypeNodeExecutor());
         buildIn.put("_index_terminate", new IndexTerminateNodeExecutor());
+        buildIn.put("_index_non_terminate", new IndexNonTerminateNodeExecutor());
+        buildIn.put("_modify_current_string", new CurrentStringNodeExecutor());
+        buildIn.put("_add_string", new AddStringExecutor());
+        buildIn.put("_execute_current_string", new EvalCurrentString());
+        buildIn.put("_execute_non_terminate", new EvalNonTerminate());
     }
 
     public static Object getEax() {

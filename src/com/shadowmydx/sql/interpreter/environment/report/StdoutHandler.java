@@ -10,6 +10,7 @@ import com.shadowmydx.sql.interpreter.environment.item.ColumnContainer;
 public class StdoutHandler implements ReportHandler {
     @Override
     public void report(ColumnContainer container) {
+        System.out.println("=====================================================================");
         System.out.println("Action type: " + container.getAction());
         System.out.println("Container type: " + container.getType());
         System.out.println("Container name: " + container.getName());
@@ -25,5 +26,6 @@ public class StdoutHandler implements ReportHandler {
             }
             System.out.println("---------------------------------------");
         }
+        System.out.println("=====================================================================");
     }
 }

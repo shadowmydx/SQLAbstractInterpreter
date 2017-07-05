@@ -72,7 +72,7 @@ public class Matcher {
         return null;
     }
 
-    private static MatchNode generateMatchNonterminate(int startIndex, List<String> tokens, ExpressionTree stmt, List<Integer> returnIndex) {
+    public static MatchNode generateMatchNonterminate(int startIndex, List<String> tokens, ExpressionTree stmt, List<Integer> returnIndex) {
 //        MatchNode root = new MatchNode();
         List<ExpressionTree> children = stmt.getAllChildren();
         for (ExpressionTree child: children) {
@@ -102,6 +102,22 @@ public class Matcher {
         }
         return splitConventional(totals, ";");
     }
+
+    public static List<List<String>> parseSQLContentByStatements(String content) throws IOException {
+        TokenParser parser = new TokenParser();
+        List<Character> spaces = new ArrayList<Character>();
+        spaces.add('\n');
+        spaces.add('\r');
+        spaces.add('\t');
+        spaces.add(' ');
+        parser.setSpaces(spaces);
+        List<String> totals = parser.parseItemFromString(content);
+        for (int i = 0; i < totals.size(); i ++) {
+            totals.set(i, totals.get(i).toUpperCase());
+        }
+        return splitConventional(totals, ";");
+    }
+
     private static List<List<String>> splitConventional(List<String> input, String splitTarget) {
         List<List<String>> result = new ArrayList<>();
         int prev = 0;
@@ -127,12 +143,13 @@ public class Matcher {
         NodeExecutor executor = new MainExecutor();
         SQLEnvironment env = new SQLEnvironment();
         executor.execute(root, env, null);
-        ReportHandler handler = new StdoutHandler();
-        env.outputReport(handler);
 
         returnIndex.set(0, 0);
         root = generateMatchNonterminate(0, result.get(1), ExpressionTree.getStmtPatternByName("execute_stmt"), returnIndex);
-        executor = new ShowNodeExecutor();
+        executor = new MainExecutor();
         executor.execute(root, env, null);
+
+        ReportHandler handler = new StdoutHandler();
+        env.outputReport(handler);
     }
 }

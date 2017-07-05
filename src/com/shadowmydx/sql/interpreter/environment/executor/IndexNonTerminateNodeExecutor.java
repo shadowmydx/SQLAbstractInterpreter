@@ -14,28 +14,31 @@ public class IndexNonTerminateNodeExecutor implements NodeExecutor{
     @Override
     public MatchNode execute(MatchNode root, SQLEnvironment env, List<Object> childrenResult) {
         MatchNode start = root;
+        if (start.getType() == NodeType.START) {
+            start = MatchNode.findNonTerminateEnd(start);
+        }
         Integer index = (Integer) ExecutorEnvironment.getEax();
         int count = 0;
         if (index > 0) {
             while (start != null) {
-                if (start.getType() == NodeType.NONTERMINATE && count == index) {
+                if (start.getType() == NodeType.START && count == index) {
                     ExecutorEnvironment.setEax(start);
                     break;
                 }
                 start = start.getNextNode();
-                if (start.getType() == NodeType.NONTERMINATE) {
+                if (start.getType() == NodeType.START) {
                     count++;
                 }
             }
         } else {
             index = -1;
             while (start != null) {
-                if (start.getType() == NodeType.NONTERMINATE && count == index) {
+                if (start.getType() == NodeType.START && count == index) {
                     ExecutorEnvironment.setEax(start);
                     break;
                 }
                 start = start.getPreNode();
-                if (start.getType() == NodeType.NONTERMINATE) {
+                if (start.getType() == NodeType.START) {
                     count++;
                 }
             }

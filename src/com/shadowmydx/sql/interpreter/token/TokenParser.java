@@ -39,6 +39,16 @@ public class TokenParser {
         return mergeItemForString(StateDealer.getResult());
     }
 
+    public List<String> parseItemFromString(String content) {
+        StateDealer.init();
+        StateDealer.setSpaces(this.spaces);
+        for (int i = 0; i < content.length(); i ++) {
+            char singleChar = content.charAt(i);
+            StateDealer.processChar(singleChar);
+        }
+        return mergeItemForString(StateDealer.getResult());
+    }
+
     public void setSpaces(List<Character> spaces) {
         this.spaces = spaces;
     }

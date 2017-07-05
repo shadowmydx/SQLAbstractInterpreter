@@ -1,7 +1,7 @@
 create table ALM_OWNER.ALM_USER (
      ADMIN_USER VARCHAR(10)
 );
-EXECUTE 'create table' + 'ALM_USER (' + 'ADMIN_USER VARCHAR(10), TEST VARCHA);';
+EXECUTE 'create table' + ' ALM_JSER (' + 'ADMIN_USER VARCHAR(10), TEST VARCHAR);';
 create table ALM_OWNER.ALM_USER (
      ADMIN_USER VARCHAR(10),
      REACH_DATE NUMBER,

@@ -44,6 +44,7 @@ public class MainExecutor implements NodeExecutor {
 
     private static MatchNode evalCodeTree(MatchNode start, ExpressionTree codeTree, SQLEnvironment env) {
         List<Object> result = new ArrayList<Object>();
+        MatchNode returnNode = start;
         if (codeTree == null || codeTree.getAllChildren() == null) {
             return start;
         }
@@ -51,14 +52,17 @@ public class MainExecutor implements NodeExecutor {
             ImediaHandler.handleImediaValue(codeTree.getToken());
         }
         for (ExpressionTree child: codeTree.getAllChildren()) {
-            evalCodeTree(start, child, env);
+            returnNode = evalCodeTree(returnNode, child, env);
+            if (returnNode.getType() == NodeType.END) {
+                returnNode = returnNode.getNextNode();
+            }
             Object returnValue = ExecutorEnvironment.getEax();
             result.add(returnValue);
         }
         NodeExecutor executor = ExecutorEnvironment.getBuildInExecutor(codeTree.getToken());
         if (executor != null) {
-            return executor.execute(start, env, result);
+            return executor.execute(returnNode, env, result);
         }
-        return start;
+        return returnNode;
     }
 }
