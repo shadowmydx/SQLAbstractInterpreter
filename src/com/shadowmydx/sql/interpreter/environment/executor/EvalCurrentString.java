@@ -19,7 +19,7 @@ public class EvalCurrentString implements NodeExecutor {
         try {
             String result = ExecutorEnvironment.varForString.get("current");
             List<List<String>> statements = Matcher.parseSQLContentByStatements(result);
-            for (List<String> stmt: statements){ //String key: ExpressionTree.stmtPattern.keySet()
+            for (List<String> stmt: statements) {
                 for (String key: ExpressionTree.stmtPattern.keySet()) {
                     List<Integer> returnIndex = new ArrayList<Integer>();
                     returnIndex.add(0);
